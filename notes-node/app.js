@@ -18,21 +18,26 @@ if (command === 'add') {
 
    if (note) {
        console.log('Note added');
-       console.log('---');
-       console.log(`Title: ${note.title}`);
-       console.log(`Body: ${note.body}`);       
+       notes.logNote(note);   
    } else {
        console.log('Note title allready in use');
    }
 } else if (command === 'list') {
     notes.getAll();
 } else if (command === 'read') {
-    notes.getNote(argv.title);
+    const note = notes.getNote(argv.title);
+
+    if (note) {
+        console.log('Reading note');
+        notes.logNote(note);
+    } else {
+        console.log('Note not found');
+    }
 } else if (command === 'remove') {
     const noteRemoved = notes.removeNote(argv.title);
     const msg = noteRemoved ? 'Note was removed' : "Note not found";
-    console.log('---')
-    console.log(msg)
+    console.log('---');
+    console.log(msg);
 } else {
     console.log('Command not recognized');
 }
